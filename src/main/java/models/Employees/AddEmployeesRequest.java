@@ -1,8 +1,15 @@
 package models.Employees;
 
+import Config.Config;
+import Config.Data.Platforms;
+import Config.Data.TimeZone;
+import Config.Data.UserPermission;
+import Config.Data.UserRole;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import models.BaseModel;
+import net.datafaker.Faker;
+import org.apache.commons.lang3.RandomStringUtils;
 
 import java.util.List;
 
@@ -40,4 +47,28 @@ public class AddEmployeesRequest extends BaseModel {
     private String status;
 
 
+    public static AddEmployeesRequest getEmployer() {
+
+        Faker faker = new Faker();
+
+        String password = RandomStringUtils.randomAlphabetic(2).toUpperCase() +
+                RandomStringUtils.randomAlphabetic(4).toLowerCase() +
+                RandomStringUtils.randomAlphanumeric(2).toUpperCase() + "!";
+
+        return AddEmployeesRequest.builder()
+                .firstName(faker.name().firstName())
+                .lastName(faker.name().lastName())
+                .email(faker.internet().emailAddress())
+                .phoneNumber("8888888888")
+                .password(password)
+                .confirmPassword(password)
+                .platforms(List.of(Platforms.office.toString(), Platforms.asc.toString(), Platforms.billing.toString()))
+                .branchesId(List.of(Config.getProperty("branchId1"), Config.getProperty("branchId2"), Config.getProperty("branchId3"), Config.getProperty("branchId4")))
+                .timezone(TimeZone.getDefaultDenverTimeZone())
+                .role(UserRole.SURGEON.toString())
+                .permissions(List.of(UserPermission.ADMIN.toString(), UserPermission.SURGEON.toString()))
+                .medicalCenterId(Config.getProperty("medicalCenterId"))
+                .status("approved")
+                .build();
+    }
 }

@@ -21,7 +21,7 @@ public class AddEmployeesResponse extends BaseModel {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    @JsonIgnoreProperties(ignoreUnknown = true)
+    //@JsonIgnoreProperties(ignoreUnknown = true)
     public static class Content {
         private String firstName;
         private String lastName;

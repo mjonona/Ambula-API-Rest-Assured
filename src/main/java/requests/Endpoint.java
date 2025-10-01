@@ -3,6 +3,8 @@ package requests;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import models.BaseModel;
+import models.Employees.AddEmployeesRequest;
+import models.Employees.AddEmployeesResponse;
 import models.LoginModels.CurrentUserResponseModel;
 import models.LoginModels.UserLoginRequestModel;
 import models.LoginModels.UserLoginResponseModel;
@@ -18,25 +20,14 @@ public enum Endpoint {
     ),
     ADD_EMPLOYEE (
             "/medical-centers/%s/employees",
-            BaseModel.class,
-            BaseModel.class
+            AddEmployeesRequest.class,
+            AddEmployeesResponse.class
     ),
     CURRENT_USER (
             "/auth/current",
             BaseModel.class,
             CurrentUserResponseModel.class
     );
-
-
-
-    // request specs header
-
-    // url path
-    // request model
-    // response model
-
-    //  respoonse specs status.code
-
 
     private final String url;
     private final Class<? extends BaseModel> requestModel;

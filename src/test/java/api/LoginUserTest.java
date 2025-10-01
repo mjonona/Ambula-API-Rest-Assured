@@ -1,4 +1,5 @@
-import io.restassured.specification.RequestSpecification;
+package api;
+
 import models.LoginModels.CurrentUserResponseModel;
 import models.LoginModels.UserLoginRequestModel;
 import models.LoginModels.UserLoginResponseModel;
@@ -8,7 +9,9 @@ import requests.Endpoint;
 import specs.RequestSpecs;
 import specs.ResponseSpecs;
 
-public class LoginUserTest {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+public class LoginUserTest extends BaseTest {
 
     @Test
     public void userLoginTest() {
@@ -22,4 +25,6 @@ public class LoginUserTest {
         CurrentUserResponseModel currentUserResponseModel = new CrudeRequesters(RequestSpecs.adminSpecs(), Endpoint.CURRENT_USER, ResponseSpecs.requestWasSuccess()).get().extract().as(CurrentUserResponseModel.class);
         System.out.println(currentUserResponseModel);
     }
+
+
 }

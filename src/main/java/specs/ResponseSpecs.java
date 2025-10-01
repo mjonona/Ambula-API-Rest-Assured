@@ -13,4 +13,8 @@ public class ResponseSpecs {
     public static ResponseSpecification requestWasSuccess() {
         return defaultResponse().expectStatusCode(HttpStatus.SC_OK).build();
     }
+
+    public static ResponseSpecification requestWasCreated() {
+        return defaultResponse().expectStatusCode(HttpStatus.SC_CREATED).build();
+    }
 }

@@ -1,5 +1,6 @@
 package specs;
 
+import Config.Config;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
@@ -18,7 +19,7 @@ public class RequestSpecs {
         return new RequestSpecBuilder()
                 .setContentType(ContentType.JSON)
                 .setAccept(ContentType.JSON)
-                .setBaseUri("https://test-ehr-backend.ambula.io/api/v1")
+                .setBaseUri(Config.getProperty("baseUrl"))
                 .addFilters(List.of(new RequestLoggingFilter(), new ResponseLoggingFilter()));
     }
 
@@ -27,9 +28,9 @@ public class RequestSpecs {
     }
 
     public static RequestSpecification adminSpecs() {
-        UserLoginRequestModel model = UserLoginRequestModel.builder().email("admin1x@mailinator.com").password("Tester09!").build();
+        UserLoginRequestModel model = UserLoginRequestModel.builder().email(Config.getProperty("adminEmail")).password(Config.getProperty("adminPassword")).build();
         UserLoginResponseModel userData = new CrudeRequesters(RequestSpecs.unAuth(), Endpoint.USER_LOGIN, ResponseSpecs.requestWasSuccess()).post(model).extract().as(UserLoginResponseModel.class);
-        String token = userData.getType()+" "+userData.getAccessToken();
+        String token = userData.getType().toUpperCase()+" "+userData.getAccessToken();
         return defaultRequest().addHeader("Authorization", token).build();
     }
 
