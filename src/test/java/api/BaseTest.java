@@ -10,11 +10,13 @@ public class BaseTest {
 
     @BeforeEach
     public void setupTest() {
+
         this.softly = new SoftAssertions();
     }
 
     @AfterEach
     public void afterTests() {
+
         softly.assertAll();
     }
 }

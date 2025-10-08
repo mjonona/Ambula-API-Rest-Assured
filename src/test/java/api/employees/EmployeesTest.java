@@ -1,6 +1,6 @@
-package api.Employees;
+package api.employees;
 
-import Config.Config;
+import config.Config;
 import models.Employees.AddEmployeesRequest;
 import models.Employees.AddEmployeesResponse;
 import org.junit.jupiter.api.Test;
