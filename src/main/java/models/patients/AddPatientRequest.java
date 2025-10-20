@@ -47,4 +47,6 @@ public class AddPatientRequest extends BaseModel {
                 .caseManagerName(null)
                 .build();
     }
+
+public class AddPatientRequest {
 }

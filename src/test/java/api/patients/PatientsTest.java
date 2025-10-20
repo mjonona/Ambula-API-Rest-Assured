@@ -17,6 +17,4 @@ public class PatientsTest extends BaseTest {
 
         new CrudeRequesters(RequestSpecs.adminSpecs(), Endpoint.ADD_PATIENT, ResponseSpecs.requestWasCreated()).post(patientRequestModel, Config.getProperty("medicalCenterId"));
     }
-
-
 }

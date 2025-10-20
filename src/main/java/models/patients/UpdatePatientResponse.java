@@ -33,6 +33,4 @@ public class UpdatePatientResponse extends BaseModel {
         private String phoneNumber;
         // добавь сюда те поля, что реально приходят
     }
-
-
 }

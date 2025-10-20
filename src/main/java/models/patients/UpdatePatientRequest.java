@@ -1,4 +1,4 @@
-package models.patients;
+package models.Employees;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import models.BaseModel;
 import net.datafaker.Faker;
+
 
 @Data
 @Builder
@@ -24,7 +25,7 @@ public class UpdatePatientRequest extends BaseModel {
     public static UpdatePatientRequest getUpdatePatientModel() {
 
 
-        Faker faker =new Faker();
+        Faker faker = new Faker();
         String upFName=faker.name().firstName();
         String upLName=faker.name().lastName();
 
@@ -36,7 +37,4 @@ public class UpdatePatientRequest extends BaseModel {
                 .build();
 
     }
-
-
-
 }

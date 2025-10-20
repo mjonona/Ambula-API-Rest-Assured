@@ -82,4 +82,4 @@ public class AddPatientResponse extends BaseModel {
         // 🔹 Добавлено поле из предыдущего объекта-запроса
         private String phoneNumber;
     }
-}
+package models.Patients;

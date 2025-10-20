@@ -83,4 +83,3 @@ public class PatientCrudeTest extends BaseTest {
         System.out.println(updated);
         softly.assertThat(updated.getContent().getPhoneNumber()).isEqualTo(addReq.getPhoneNumber());
     }
-}
