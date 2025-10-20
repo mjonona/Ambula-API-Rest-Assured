@@ -7,18 +7,10 @@ import models.BaseModel;
 
 import static io.restassured.RestAssured.given;
 
-public class CrudeRequesters  implements CrudEndpointInterfaces {
-
-    private final RequestSpecification requestSpecification;
-    private final Endpoint endpoint;
-    private final ResponseSpecification responseSpecification;
-
+public class CrudeRequesters extends HTTPRequest  implements CrudEndpointInterfaces {
 
     public CrudeRequesters(RequestSpecification requestSpecification, Endpoint endpoint, ResponseSpecification responseSpecification) {
-
-        this.requestSpecification = requestSpecification;
-        this.endpoint = endpoint;
-      this.responseSpecification = responseSpecification;
+        super(requestSpecification, endpoint, responseSpecification);
     }
 
     @Override
