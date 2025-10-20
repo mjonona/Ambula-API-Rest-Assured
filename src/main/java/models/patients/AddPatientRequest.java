@@ -31,7 +31,7 @@ public class AddPatientRequest extends BaseModel {
      */
     public static AddPatientRequest getAddPatientModel() {
 
-        Faker faker =new Faker();
+        Faker faker = new Faker();
         return AddPatientRequest.builder()
                 .firstName(faker.name().firstName())
                 .lastName(faker.name().lastName())
@@ -47,6 +47,4 @@ public class AddPatientRequest extends BaseModel {
                 .caseManagerName(null)
                 .build();
     }
-
-public class AddPatientRequest {
 }

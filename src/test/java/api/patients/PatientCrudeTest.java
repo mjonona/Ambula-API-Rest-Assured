@@ -3,9 +3,9 @@ package api.patients;
 import api.BaseTest;
 import config.Config;
 import io.restassured.response.ValidatableResponse;
+import models.Employees.UpdatePatientRequest;
 import models.patients.AddPatientRequest;
 import models.patients.AddPatientResponse;
-import models.patients.UpdatePatientRequest;
 import net.datafaker.Faker;
 import org.junit.jupiter.api.Test;
 import requests.CrudeRequesters;
@@ -14,7 +14,7 @@ import specs.RequestSpecs;
 import specs.ResponseSpecs;
 
 public class PatientCrudeTest extends BaseTest {
-    private final String MC_ID= Config.getProperty("medicalCenterId");
+    private final String MC_ID = Config.getProperty("medicalCenterId");
 
     @Test
     void create_then_update_patient() {
@@ -22,14 +22,12 @@ public class PatientCrudeTest extends BaseTest {
         //Create
 
         AddPatientRequest addReq = AddPatientRequest.getAddPatientModel();
-        ValidatableResponse createdV=new CrudeRequesters(
-                RequestSpecs.adminSpecs(),
-                Endpoint.ADD_PATIENT,
-                ResponseSpecs.requestWasCreated()
-        ).post(addReq,MC_ID);
 
-        AddPatientResponse created=createdV.extract().as(AddPatientResponse.class);
-        String patientId =created.getContent().getId();
+        ValidatableResponse createdV = new CrudeRequesters(RequestSpecs.adminSpecs(), Endpoint.ADD_PATIENT, ResponseSpecs.requestWasCreated()).post(addReq, MC_ID);
+
+
+        AddPatientResponse created = createdV.extract().as(AddPatientResponse.class);
+        String patientId = created.getContent().getId();
 
         //Update
 
@@ -55,21 +53,19 @@ public class PatientCrudeTest extends BaseTest {
 
     @Test
 
-    public void updatePat (){
-
-
+    public void updatePat() {
 
         //Create
 
         AddPatientRequest addReq = AddPatientRequest.getAddPatientModel();
-        ValidatableResponse createdV=new CrudeRequesters(
+        ValidatableResponse createdV = new CrudeRequesters(
                 RequestSpecs.adminSpecs(),
                 Endpoint.ADD_PATIENT,
                 ResponseSpecs.requestWasCreated()
-        ).post(addReq,MC_ID);
+        ).post(addReq, MC_ID);
 
-        AddPatientResponse created=createdV.extract().as(AddPatientResponse.class);
-        String patientId =created.getContent().getId();
+        AddPatientResponse created = createdV.extract().as(AddPatientResponse.class);
+        String patientId = created.getContent().getId();
         //Update
 
         UpdatePatientRequest upReq = UpdatePatientRequest.getUpdatePatientModel();
@@ -83,3 +79,4 @@ public class PatientCrudeTest extends BaseTest {
         System.out.println(updated);
         softly.assertThat(updated.getContent().getPhoneNumber()).isEqualTo(addReq.getPhoneNumber());
     }
+}

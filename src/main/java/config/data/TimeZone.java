@@ -1,4 +1,4 @@
-package Config.Data;
+package config.data;
 
 public enum TimeZone {
     America_Denver;

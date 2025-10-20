@@ -25,6 +25,4 @@ public class LoginUserTest extends BaseTest {
         CurrentUserResponseModel currentUserResponseModel = new CrudeRequesters(RequestSpecs.adminSpecs(), Endpoint.CURRENT_USER, ResponseSpecs.requestWasSuccess()).get().extract().as(CurrentUserResponseModel.class);
         System.out.println(currentUserResponseModel);
     }
-
-
 }

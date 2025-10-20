@@ -1,11 +1,12 @@
 package api.employees;
 
-import Config.Config;
 import models.Employees.AddEmployeesRequest;
 import models.Employees.AddEmployeesResponse;
+import models.comparison.ModelAssertions;
 import org.junit.jupiter.api.Test;
 import requests.CrudeRequesters;
 import requests.Endpoint;
+import requests.ValidatedCrudeRequesters;
 import specs.RequestSpecs;
 import specs.ResponseSpecs;
 import api.BaseTest;
@@ -16,9 +17,9 @@ public class EmployeesTest extends BaseTest {
     public void addEmployee(){
         AddEmployeesRequest newEmployeeRequest = AddEmployeesRequest.getEmployer();
 
-        AddEmployeesResponse newEmployee = new CrudeRequesters(RequestSpecs.adminSpecs(), Endpoint.ADD_EMPLOYEE, ResponseSpecs.requestWasCreated()).post(newEmployeeRequest, Config.getProperty("medicalCenterId")).extract().as(AddEmployeesResponse.class);
+        AddEmployeesResponse newEmployee = new ValidatedCrudeRequesters<AddEmployeesResponse>(RequestSpecs.adminSpecs(), Endpoint.ADD_EMPLOYEE, ResponseSpecs.requestWasCreated()).post(newEmployeeRequest, config.Config.getProperty("medicalCenterId"));
 
-        softly.assertThat(newEmployeeRequest.getFirstName()).isEqualTo(newEmployee.getContent().getFirstName());
+        ModelAssertions.assertThatModels(newEmployeeRequest, newEmployee.getContent()).match();
     }
 
     @Test
