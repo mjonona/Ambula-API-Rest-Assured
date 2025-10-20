@@ -23,8 +23,20 @@ public class CrudeRequesters  implements CrudEndpointInterfaces {
 
     @Override
     public ValidatableResponse post(BaseModel model, Object... params) {
+        if (params == null || params.length == 0) {
+            return given().spec(requestSpecification).body(model).when().post(endpoint.getUrl()).then().spec(responseSpecification);
+
+        }
+
         String formattedUrl = String.format(endpoint.getUrl(), params);
         return given().spec(requestSpecification).body(model).when().post(formattedUrl).then().spec(responseSpecification);
+    }
+
+    // requests/CrudeRequesters.java
+    private String url(Object... params) {
+        return (params == null || params.length == 0)
+                ? endpoint.getUrl()
+                : String.format(endpoint.getUrl(), params);
     }
 
     @Override
@@ -50,6 +62,8 @@ public class CrudeRequesters  implements CrudEndpointInterfaces {
         String formattedUrl = String.format(endpoint.getUrl(), params);
         return null;
     }
+
+
 }
 
 //        return given().spec(requestSpecification).body(model).when().post(endpoint.getUrl()).then().spec(responseSpecification);
