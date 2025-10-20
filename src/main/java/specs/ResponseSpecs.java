@@ -2,7 +2,10 @@ package specs;
 
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.specification.ResponseSpecification;
+import models.patients.AddPatientResponse;
 import org.apache.http.HttpStatus;
+import requests.CrudeRequesters;
+import requests.Endpoint;
 
 public class ResponseSpecs {
 
@@ -17,4 +20,10 @@ public class ResponseSpecs {
     public static ResponseSpecification requestWasCreated() {
         return defaultResponse().expectStatusCode(HttpStatus.SC_CREATED).build();
     }
+    public static ResponseSpecification requestNoContent() {
+        return new ResponseSpecBuilder().expectStatusCode(204).build();
+
+
+    }
+
 }

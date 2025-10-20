@@ -1,10 +1,10 @@
 package models.Employees;
 
-import Config.Config;
-import Config.Data.Platforms;
-import Config.Data.TimeZone;
-import Config.Data.UserPermission;
-import Config.Data.UserRole;
+import config.Config;
+import config.data.Platforms;
+import config.data.TimeZone;
+import config.data.UserPermission;
+import config.data.UserRole;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import models.BaseModel;
@@ -12,6 +12,8 @@ import net.datafaker.Faker;
 import org.apache.commons.lang3.RandomStringUtils;
 
 import java.util.List;
+
+
 
 @Data
 @AllArgsConstructor
@@ -69,6 +71,6 @@ public class AddEmployeesRequest extends BaseModel {
                 .permissions(List.of(UserPermission.ADMIN.toString(), UserPermission.SURGEON.toString()))
                 .medicalCenterId(Config.getProperty("medicalCenterId"))
                 .status("approved")
-                .build();
+                .billingProviderSameAsProvider(true).build();
     }
 }

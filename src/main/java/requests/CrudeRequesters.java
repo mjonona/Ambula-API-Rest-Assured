@@ -7,10 +7,18 @@ import models.BaseModel;
 
 import static io.restassured.RestAssured.given;
 
-public class CrudeRequesters extends HTTPRequest  implements CrudEndpointInterfaces {
+public class CrudeRequesters  implements CrudEndpointInterfaces {
+
+    private final RequestSpecification requestSpecification;
+    private final Endpoint endpoint;
+    private final ResponseSpecification responseSpecification;
+
 
     public CrudeRequesters(RequestSpecification requestSpecification, Endpoint endpoint, ResponseSpecification responseSpecification) {
-        super(requestSpecification, endpoint, responseSpecification);
+
+        this.requestSpecification = requestSpecification;
+        this.endpoint = endpoint;
+        this.responseSpecification = responseSpecification;
     }
 
     @Override
@@ -22,14 +30,20 @@ public class CrudeRequesters extends HTTPRequest  implements CrudEndpointInterfa
     @Override
     public ValidatableResponse get(Object... params) {
         String formattedUrl = String.format(endpoint.getUrl(), params);
-        return null;
+        return given().spec(requestSpecification)
+                .when().get(formattedUrl)
+                .then().spec(responseSpecification);
     }
 
     @Override
     public ValidatableResponse update(BaseModel model, Object... params) {
         String formattedUrl = String.format(endpoint.getUrl(), params);
-        return null;
+        return given().spec(requestSpecification)
+                .body(model)
+                .when().patch(formattedUrl)
+                .then().spec(responseSpecification);
     }
+
 
     @Override
     public ValidatableResponse delete(Object... params) {

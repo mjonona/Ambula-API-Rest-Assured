@@ -1,6 +1,6 @@
 package specs;
 
-import Config.Config;
+import config.Config;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
@@ -19,6 +19,7 @@ public class RequestSpecs {
         return new RequestSpecBuilder()
                 .setContentType(ContentType.JSON)
                 .setAccept(ContentType.JSON)
+                .addHeader("emr-app-type", "office")
                 .setBaseUri(Config.getProperty("baseUrl"))
                 .addFilters(List.of(new RequestLoggingFilter(), new ResponseLoggingFilter()));
     }
