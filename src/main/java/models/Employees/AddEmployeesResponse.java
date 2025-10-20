@@ -11,7 +11,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonIgnoreProperties(ignoreUnknown = true)
+//@JsonIgnoreProperties(ignoreUnknown = true)
 public class AddEmployeesResponse extends BaseModel {
     private String status;
     private Object meta;
@@ -76,7 +76,7 @@ public class AddEmployeesResponse extends BaseModel {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    @JsonIgnoreProperties(ignoreUnknown = true)
+    //@JsonIgnoreProperties(ignoreUnknown = true)
     public static class Weekday {
         private boolean checked;
         private String startTime;

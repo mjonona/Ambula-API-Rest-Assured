@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import models.BaseModel;
+import net.datafaker.Faker;
+
 
 @Data
 @Builder
@@ -17,9 +19,22 @@ public class UpdatePatientRequest extends BaseModel {
 
     private String firstName;
     private String lastName;
-    private String phoneNUmber;
+    private String phoneNumber;
     private String email;
 
+    public static UpdatePatientRequest getUpdatePatientModel() {
 
 
+        Faker faker = new Faker();
+        String upFName=faker.name().firstName();
+        String upLName=faker.name().lastName();
+
+
+        return UpdatePatientRequest.builder()
+                .firstName(upFName)
+                .lastName(upLName)
+                .phoneNumber("+18888888880")
+                .build();
+
+    }
 }
