@@ -1,11 +1,10 @@
 package api.employees;
 
-import models.Employees.AddEmployeesRequest;
-import models.Employees.AddEmployeesResponse;
+import models.employees.AddEmployeesRequest;
+import models.employees.AddEmployeesResponse;
 import models.comparison.ModelAssertions;
 import org.junit.jupiter.api.Test;
-import requests.CrudeRequesters;
-import requests.Endpoint;
+import requests.skeleton.Endpoint;
 import requests.ValidatedCrudeRequesters;
 import specs.RequestSpecs;
 import specs.ResponseSpecs;

@@ -3,6 +3,9 @@ package requests;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 import models.BaseModel;
+import requests.skeleton.CrudEndpointInterfaces;
+import requests.skeleton.Endpoint;
+import requests.skeleton.HTTPRequest;
 
 public class ValidatedCrudeRequesters<T extends BaseModel> extends HTTPRequest implements CrudEndpointInterfaces {
 

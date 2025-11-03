@@ -1,4 +1,4 @@
-package requests;
+package requests.skeleton;
 
 import models.BaseModel;
 

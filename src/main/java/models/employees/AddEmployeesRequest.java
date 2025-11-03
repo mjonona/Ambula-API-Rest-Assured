@@ -1,4 +1,4 @@
-package models.Employees;
+package models.employees;
 
 import config.Config;
 import config.data.Platforms;

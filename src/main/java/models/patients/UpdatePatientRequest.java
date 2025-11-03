@@ -1,4 +1,4 @@
-package models.Employees;
+package models.employees;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;

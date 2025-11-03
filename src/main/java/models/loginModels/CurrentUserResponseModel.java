@@ -1,4 +1,4 @@
-package models.LoginModels;
+package models.loginModels;
 
 import models.BaseModel;
 

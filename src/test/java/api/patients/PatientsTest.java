@@ -4,7 +4,7 @@ import api.BaseTest;
 import config.Config;
 import org.junit.jupiter.api.Test;
 import requests.CrudeRequesters;
-import requests.Endpoint;
+import requests.skeleton.Endpoint;
 import specs.RequestSpecs;
 import specs.ResponseSpecs;
 

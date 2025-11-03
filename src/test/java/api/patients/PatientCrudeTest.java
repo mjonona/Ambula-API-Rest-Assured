@@ -3,13 +3,12 @@ package api.patients;
 import api.BaseTest;
 import config.Config;
 import io.restassured.response.ValidatableResponse;
-import models.Employees.UpdatePatientRequest;
+import models.employees.UpdatePatientRequest;
 import models.patients.AddPatientRequest;
 import models.patients.AddPatientResponse;
-import net.datafaker.Faker;
 import org.junit.jupiter.api.Test;
 import requests.CrudeRequesters;
-import requests.Endpoint;
+import requests.skeleton.Endpoint;
 import specs.RequestSpecs;
 import specs.ResponseSpecs;
 

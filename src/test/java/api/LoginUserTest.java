@@ -1,11 +1,11 @@
 package api;
 
-import models.LoginModels.CurrentUserResponseModel;
-import models.LoginModels.UserLoginRequestModel;
-import models.LoginModels.UserLoginResponseModel;
+import models.loginModels.CurrentUserResponseModel;
+import models.loginModels.UserLoginRequestModel;
+import models.loginModels.UserLoginResponseModel;
 import org.junit.jupiter.api.Test;
 import requests.CrudeRequesters;
-import requests.Endpoint;
+import requests.skeleton.Endpoint;
 import specs.RequestSpecs;
 import specs.ResponseSpecs;
 
