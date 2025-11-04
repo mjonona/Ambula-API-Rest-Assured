@@ -45,9 +45,8 @@ jobs:
           path: gh-pages
 
       - name: Generate Allure Report
-        uses: allure-framework/allure-action@v2
+        uses: simple-elf/allure-report-action@v1.13
         with:
-          version: 2.29.0
           results: target/allure-results
           report-dir: allure-history
 
