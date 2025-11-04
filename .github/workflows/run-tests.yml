@@ -43,8 +43,8 @@ jobs:
         if: always()
         with:
           gh_pages: gh-pages
-          allure_history: allure-history
           allure_results: target/allure-results
+          allure_history: allure-history
 
       - name: Publish test report
         uses: peaceiris/actions-gh-pages@v3
