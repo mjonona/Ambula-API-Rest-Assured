@@ -29,7 +29,6 @@ public class LoginUserTest extends BaseTest {
     public void currentMedicalCenterSetting() {
 
         String medicalID = Config.getProperty("medicalCenterId");
-
         CurrentUserResponseModel currentUserResponseModel = new CrudeRequesters(RequestSpecs.adminSpecs(), Endpoint.CURRENT_USER, ResponseSpecs.requestWasSuccess()).get(medicalID).extract().as(CurrentUserResponseModel.class);
         System.out.println(currentUserResponseModel);
     }
