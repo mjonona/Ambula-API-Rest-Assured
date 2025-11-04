@@ -32,29 +32,28 @@ jobs:
       - name: Run all tests
         run: ./mvnw clean test -q
 
-      - name: Load Test Report History
-        uses: actions/checkout@v2
-        if: always()
-        with:
-             ref: gh-pages
-             path: gh-pages
-
-      - name: Load test report history
-        uses: actions/checkout@v2
-        if: always()
+      - name: Load previous Allure history
+        uses: actions/checkout@v4
         with:
           ref: gh-pages
           path: gh-pages
 
-      - name: Generate Allure Report
-        uses: simple-elf/allure-report-action@v1.13
-        with:
-          results: target/allure-results
-          report-dir: allure-history
+      - name: Install Allure CLI
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wget unzip
+          wget https://github.com/allure-framework/allure2/releases/download/2.29.0/allure-2.29.0.zip
+          unzip allure-2.29.0.zip -d /opt/allure
+          echo "/opt/allure/allure-2.29.0/bin" >> $GITHUB_PATH
 
-      - name: Publish test report
+      - name: Generate Allure Report with history
+        run: |
+          mkdir -p allure-history/history
+          cp -r gh-pages/history/* allure-history/history/ || echo "No previous history"
+          /opt/allure/allure-2.29.0/bin/allure generate target/allure-results -o allure-history
+
+      - name: Publish Allure Report
         uses: peaceiris/actions-gh-pages@v3
-        if: always()
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
