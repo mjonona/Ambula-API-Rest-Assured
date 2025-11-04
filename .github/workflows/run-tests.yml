@@ -1,12 +1,12 @@
 name: Run Ambula Tests
 
-on:
-  push:
-  pull_request:
+on: [push]
+
+env:
+  REPORT_VERSION: ${{ github.run_number }}  # автоматически номер сборки
 
 jobs:
   run-tests:
-    name: "Run API Tests & Publish Allure Report"
     runs-on: ubuntu-latest
 
     steps:
@@ -29,10 +29,17 @@ jobs:
 
       - name: Run all tests
         run: ./mvnw clean test -q
+        env:
+          APIBASEURL: http://localhost:4111
+          UIBASEURL: http://frontend
 
-      # ------- Установка Allure CLI -------
+      - name: Load Test Report History
+        uses: actions/checkout@v2
+        with:
+          ref: gh-pages
+          path: gh-pages
+
       - name: Install Allure CLI
-        if: always()
         run: |
           sudo apt-get update
           sudo apt-get install -y wget unzip
@@ -40,14 +47,12 @@ jobs:
           unzip allure-2.29.0.zip -d /opt/allure
           echo "/opt/allure/allure-2.29.0/bin" >> $GITHUB_PATH
 
-      # ------- Генерация отчета -------
       - name: Generate Allure Report
-        if: always()
-        run: allure generate target/allure-results -o allure-history
+        run: |
+          mkdir -p allure-history/${REPORT_VERSION}
+          allure generate target/allure-results --clean -o allure-history/${REPORT_VERSION}
 
-      # ------- Публикация в GitHub Pages -------
-      - name: Publish Test Report to GitHub Pages
-        if: always()
+      - name: Publish Test Report
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
