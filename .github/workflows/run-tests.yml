@@ -4,8 +4,8 @@ on: [push]
 
 jobs:
   run-tests:
-    name: "Setup services"
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -15,36 +15,29 @@ jobs:
         with:
           distribution: 'corretto'
           java-version: '21'
+
       - name: Cache Maven repository
         uses: actions/cache@v4
         with:
-            path: ~/.m2/repository
-            key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-            restore-keys: |
-              ${{ runner.os }}-maven-
-              
-      - name: Run all tests
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Run Tests
         run: ./mvnw clean test -q
 
-      - name: Load Test Report History
-        uses: actions/checkout@v2
+      - name: Generate Allure Report
+        uses: simple-elf/allure-generator-action@v1.2
         if: always()
         with:
-            ref: gh-pages
-            path: gh-pages
+          results-dir: target/allure-results
+          report-dir: allure-report
 
-      - name: Build Test Report
-        uses: simple-elf/allure-report-action@v1.9
+      - name: Publish Allure Report to GitHub Pages
         if: always()
-        with:
-            gh_pages: gh-pages
-            allure_results: target/allure-results
-            allure_history: allure-history
-
-      - name: Publish Test Report
         uses: peaceiris/actions-gh-pages@v3
-        if: always()
         with:
-            github_token: ${{ secrets.GITHUB_TOKEN }}
-            publish_branch: gh-pages
-            publish_dir: allure-history
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: allure-report
