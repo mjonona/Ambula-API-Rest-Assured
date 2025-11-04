@@ -1,10 +1,8 @@
 name: Run Ambula Tests
 
-# триггер
 on:
   push:
-    paths:
-      - 'src/**'
+  pull_request:
 
 jobs:
   run-tests:
@@ -32,20 +30,9 @@ jobs:
       - name: Run all tests
         run: ./mvnw clean test -q
 
-      - name: Checkout gh-pages
-        uses: actions/checkout@v4
-        with:
-          ref: gh-pages
-          path: gh-pages || true  # игнорировать если нет ветки
-
-      - name: Copy previous history
-        run: |
-          mkdir -p allure-history/history
-          if [ -d gh-pages/history ]; then
-            cp -r gh-pages/history/* allure-history/history/
-          fi
-
+      # ------- Установка Allure CLI -------
       - name: Install Allure CLI
+        if: always()
         run: |
           sudo apt-get update
           sudo apt-get install -y wget unzip
@@ -53,26 +40,16 @@ jobs:
           unzip allure-2.29.0.zip -d /opt/allure
           echo "/opt/allure/allure-2.29.0/bin" >> $GITHUB_PATH
 
+      # ------- Генерация отчета -------
       - name: Generate Allure Report
-        run: /opt/allure/allure-2.29.0/bin/allure generate target/allure-results --clean -o allure-history
+        if: always()
+        run: allure generate target/allure-results --clean -o allure-history
 
-      - name: Ensure gh-pages exists
-        run: |
-          if ! git ls-remote --exit-code origin gh-pages; then
-            git checkout --orphan gh-pages
-            git commit --allow-empty -m "Init gh-pages"
-            git push origin gh-pages
-          fi
-
-      - name: Publish Allure Report
+      # ------- Публикация в GitHub Pages -------
+      - name: Publish Test Report to GitHub Pages
+        if: always()
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
           publish_dir: allure-history
-
-
-
-
-
-
