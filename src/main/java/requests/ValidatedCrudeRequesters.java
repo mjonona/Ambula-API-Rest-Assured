@@ -19,8 +19,7 @@ public class ValidatedCrudeRequesters<T extends BaseModel> extends HTTPRequest i
 
     @Override
     public T post(BaseModel model, String id) {
-        String postPath = String.format(endpoint.getUrl(), id);
-        return (T) crudeRequesters.post(model, postPath).extract().as(endpoint.getResponseModel()) ;
+        return (T) crudeRequesters.post(model, id).extract().as(endpoint.getResponseModel()) ;
     }
 
     @Override
