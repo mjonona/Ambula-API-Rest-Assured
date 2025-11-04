@@ -45,6 +45,14 @@ jobs:
             cp -r gh-pages/history/* allure-history/history/
           fi
 
+      - name: Install Allure CLI
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wget unzip
+          wget https://github.com/allure-framework/allure2/releases/download/2.29.0/allure-2.29.0.zip
+          unzip allure-2.29.0.zip -d /opt/allure
+          echo "/opt/allure/allure-2.29.0/bin" >> $GITHUB_PATH
+
       - name: Generate Allure Report
         run: /opt/allure/allure-2.29.0/bin/allure generate target/allure-results -o allure-history
 

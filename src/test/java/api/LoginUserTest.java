@@ -22,6 +22,7 @@ public class LoginUserTest extends BaseTest {
         System.out.println(userLoginResponseModel);
 
 
+
     }
 
     @Test
