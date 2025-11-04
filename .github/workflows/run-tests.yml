@@ -31,7 +31,7 @@ jobs:
         run: ./mvnw clean test -q
 
       - name: Load test report history
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
         if: always()
         continue-on-error: true
         with:
