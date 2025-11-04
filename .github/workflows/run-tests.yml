@@ -51,7 +51,7 @@ jobs:
           echo "/opt/allure/allure-2.29.0/bin" >> $GITHUB_PATH
 
       - name: Generate Allure Report
-        run: /opt/allure/allure-2.29.0/bin/allure generate target/allure-results -o allure-history
+        run: /opt/allure/allure-2.29.0/bin/allure generate target/allure-results --clean -o allure-history
 
       - name: Ensure gh-pages exists
         run: |
