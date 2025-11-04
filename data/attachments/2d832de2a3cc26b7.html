@@ -1,0 +1,77 @@
+<div>POST to https://test-ehr-backend.ambula.io/api/v1/medical-centers/515da63e-9ace-4e12-9310-4a64ba6bed26/employees</div>
+
+    <h4>Body</h4>
+    <div>
+    <pre class="preformated-text">
+{
+    &quot;firstName&quot;: &quot;Nu&quot;,
+    &quot;lastName&quot;: &quot;Windler&quot;,
+    &quot;email&quot;: &quot;nigel.ratke@yahoo.com&quot;,
+    &quot;phoneNumber&quot;: &quot;8888888888&quot;,
+    &quot;password&quot;: &quot;HGbjkgV4!&quot;,
+    &quot;confirmPassword&quot;: &quot;HGbjkgV4!&quot;,
+    &quot;platforms&quot;: [
+        &quot;office&quot;,
+        &quot;asc&quot;,
+        &quot;billing&quot;
+    ],
+    &quot;timezone&quot;: &quot;America/Denver&quot;,
+    &quot;role&quot;: &quot;SURGEON&quot;,
+    &quot;permissions&quot;: [
+        &quot;ADMIN&quot;,
+        &quot;SURGEON&quot;
+    ],
+    &quot;medicalCenterId&quot;: &quot;515da63e-9ace-4e12-9310-4a64ba6bed26&quot;,
+    &quot;status&quot;: &quot;approved&quot;,
+    &quot;branchesId&quot;: [
+        &quot;040167e8-5c57-4546-8753-0b32985133ec&quot;,
+        &quot;9b3463fb-7ae9-47a7-8ff9-f8b1b3ada81a&quot;,
+        &quot;63d28216-db0c-4874-8523-4ecd4a8bc2cc&quot;,
+        &quot;8f3cfa11-476e-4cac-a3d8-609338d2d9d0&quot;
+    ],
+    &quot;isBillingProviderSameAsProvider&quot;: true
+}    </pre>
+    </div>
+
+    <h4>Headers</h4>
+    <div>
+            <div>Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4N2Q3OGI2LWNiY2QtNDNkMi04MWIyLTg0NTM4MzUxZjk2MCIsImlhdCI6MTc2MjI3NjAzNCwiZXhwIjoxNzYyMzYyNDM0LCJhdWQiOiJbXCJGUk9OVERFU0tcIixcIk5VUlNFXCIsXCJTVVJHRU9OXCIsXCJCSUxMSU5HXCIsXCJCSUxMSU5HX0FETUlOXCIsXCJBRE1JTlwiLFwiT1dORVJcIl0iLCJpc3MiOiJBTUJVTEFfRU1SIiwic3ViIjoiNTg3ZDc4YjYtY2JjZC00M2QyLTgxYjItODQ1MzgzNTFmOTYwIn0.xb4CDCNr2clXG-OK9UuQjIoYfgP5gQulGU9D9_tzBVk</div>
+            <div>Accept: application/json, application/javascript, text/javascript, text/json</div>
+            <div>emr-app-type: office</div>
+            <div>Content-Type: application/json</div>
+    </div>
+
+
+
+    <h4>Curl</h4>
+    <div>
+        curl -v -X POST &#39;https://test-ehr-backend.ambula.io/api/v1/medical-centers/515da63e-9ace-4e12-9310-4a64ba6bed26/employees&#39; -H &#39;Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4N2Q3OGI2LWNiY2QtNDNkMi04MWIyLTg0NTM4MzUxZjk2MCIsImlhdCI6MTc2MjI3NjAzNCwiZXhwIjoxNzYyMzYyNDM0LCJhdWQiOiJbXCJGUk9OVERFU0tcIixcIk5VUlNFXCIsXCJTVVJHRU9OXCIsXCJCSUxMSU5HXCIsXCJCSUxMSU5HX0FETUlOXCIsXCJBRE1JTlwiLFwiT1dORVJcIl0iLCJpc3MiOiJBTUJVTEFfRU1SIiwic3ViIjoiNTg3ZDc4YjYtY2JjZC00M2QyLTgxYjItODQ1MzgzNTFmOTYwIn0.xb4CDCNr2clXG-OK9UuQjIoYfgP5gQulGU9D9_tzBVk&#39; -H &#39;Accept: application/json, application/javascript, text/javascript, text/json&#39; -H &#39;emr-app-type: office&#39; -H &#39;Content-Type: application/json&#39; -d &#39;{
+    &quot;firstName&quot;: &quot;Nu&quot;,
+    &quot;lastName&quot;: &quot;Windler&quot;,
+    &quot;email&quot;: &quot;nigel.ratke@yahoo.com&quot;,
+    &quot;phoneNumber&quot;: &quot;8888888888&quot;,
+    &quot;password&quot;: &quot;HGbjkgV4!&quot;,
+    &quot;confirmPassword&quot;: &quot;HGbjkgV4!&quot;,
+    &quot;platforms&quot;: [
+        &quot;office&quot;,
+        &quot;asc&quot;,
+        &quot;billing&quot;
+    ],
+    &quot;timezone&quot;: &quot;America/Denver&quot;,
+    &quot;role&quot;: &quot;SURGEON&quot;,
+    &quot;permissions&quot;: [
+        &quot;ADMIN&quot;,
+        &quot;SURGEON&quot;
+    ],
+    &quot;medicalCenterId&quot;: &quot;515da63e-9ace-4e12-9310-4a64ba6bed26&quot;,
+    &quot;status&quot;: &quot;approved&quot;,
+    &quot;branchesId&quot;: [
+        &quot;040167e8-5c57-4546-8753-0b32985133ec&quot;,
+        &quot;9b3463fb-7ae9-47a7-8ff9-f8b1b3ada81a&quot;,
+        &quot;63d28216-db0c-4874-8523-4ecd4a8bc2cc&quot;,
+        &quot;8f3cfa11-476e-4cac-a3d8-609338d2d9d0&quot;
+    ],
+    &quot;isBillingProviderSameAsProvider&quot;: true
+}&#39;
+    </div>
+
