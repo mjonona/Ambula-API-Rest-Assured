@@ -17,7 +17,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: 'corretto'
-          java-version: '17'
+          java-version: '21'
 
       - name: Cache Maven repository
         uses: actions/cache@v4
@@ -30,25 +30,25 @@ jobs:
       - name: Run all tests
         run: ./mvnw clean test -q
 
-      - name: Load test report history
-        uses: actions/checkout@v2
+      # ------- Установка Allure CLI -------
+      - name: Install Allure CLI
         if: always()
-        continue-on-error: true
-        with:
-          ref: gh-pages
-          path: gh-pages
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wget unzip
+          wget https://github.com/allure-framework/allure2/releases/download/2.29.0/allure-2.29.0.zip
+          unzip allure-2.29.0.zip -d /opt/allure
+          echo "/opt/allure/allure-2.29.0/bin" >> $GITHUB_PATH
 
-      - name: Build test report
-        uses: simple-elf/allure-report-action@v1.7
+      # ------- Генерация отчета -------
+      - name: Generate Allure Report
         if: always()
-        with:
-          gh_pages: gh-pages
-          allure_history: allure-history
-          allure_results: target/allure-results
+        run: allure generate target/allure-results --clean -o allure-history
 
-      - name: Publish test report
+      # ------- Публикация в GitHub Pages -------
+      - name: Publish Test Report to GitHub Pages
+        if: always()
         uses: peaceiris/actions-gh-pages@v3
-        if: always()
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
