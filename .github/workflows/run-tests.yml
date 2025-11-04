@@ -30,26 +30,26 @@ jobs:
       - name: Run all tests
         run: ./mvnw clean test -q
 
-      # ------- Установка Allure CLI -------
-      - name: Install Allure CLI
+      - name: Load test report history
+        uses: actions/checkout@v3
         if: always()
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y wget unzip
-          wget https://github.com/allure-framework/allure2/releases/download/2.29.0/allure-2.29.0.zip
-          unzip allure-2.29.0.zip -d /opt/allure
-          echo "/opt/allure/allure-2.29.0/bin" >> $GITHUB_PATH
-
-      # ------- Генерация отчета -------
-      - name: Generate Allure Report
-        if: always()
-        run: allure generate target/allure-results -o allure-history
-
-      # ------- Публикация в GitHub Pages -------
-      - name: Publish Test Report to GitHub Pages
-        if: always()
-        uses: peaceiris/actions-gh-pages@v3
+        continue-on-error: true
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: gh-pages
-          publish_dir: allure-history
+          ref: gh-pages
+          path: gh-pages
+
+      - name: Build test report
+        uses: simple-elf/allure-report-action@v1.7
+        if: always()
+        with:
+          gh_pages: gh-pages
+          allure_history: allure-history
+          allure_results: build/allure-results
+
+      - name: Publish test report
+        uses: peaceiris/actions-gh-pages@v3
+        if: always()
+        with:
+            github_token: ${{ secrets.GITHUB_TOKEN }}
+            publish_branch: gh-pages
+            publish_dir: allure-history
