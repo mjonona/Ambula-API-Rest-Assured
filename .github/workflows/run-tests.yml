@@ -14,8 +14,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: 'corretto'
-          java-version:
-
+          java-version: '21'
       - name: Cache Maven repository
         uses: actions/cache@v4
         with:
@@ -35,7 +34,7 @@ jobs:
             path: gh-pages
 
       - name: Build Test Report
-        uses: simple-elf/allure-report-action@v1.9
+        uses: simple-elf/allure-report-action@v1.7
         if: always()
         with:
             gh_pages: gh-pages
