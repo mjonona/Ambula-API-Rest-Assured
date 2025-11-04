@@ -43,7 +43,7 @@ jobs:
       # ------- Генерация отчета -------
       - name: Generate Allure Report
         if: always()
-        run: allure generate target/allure-results --clean -o allure-history
+        run: allure generate target/allure-results -o allure-history
 
       # ------- Публикация в GitHub Pages -------
       - name: Publish Test Report to GitHub Pages
