@@ -20,6 +20,7 @@ public class LoginUserTest extends BaseTest {
         UserLoginRequestModel model = UserLoginRequestModel.builder().email("admin1x@mailinator.com").password("Tester09!").build();
         UserLoginResponseModel userLoginResponseModel = new CrudeRequesters(RequestSpecs.unAuth(), Endpoint.USER_LOGIN, ResponseSpecs.requestWasSuccess()).post(model, medicalID).extract().as(UserLoginResponseModel.class);
         System.out.println(userLoginResponseModel);
+
     }
 
     @Test
