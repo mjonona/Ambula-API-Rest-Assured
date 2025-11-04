@@ -21,8 +21,6 @@ public class LoginUserTest extends BaseTest {
         UserLoginResponseModel userLoginResponseModel = new CrudeRequesters(RequestSpecs.unAuth(), Endpoint.USER_LOGIN, ResponseSpecs.requestWasSuccess()).post(model, medicalID).extract().as(UserLoginResponseModel.class);
         System.out.println(userLoginResponseModel);
 
-
-
     }
 
     @Test
