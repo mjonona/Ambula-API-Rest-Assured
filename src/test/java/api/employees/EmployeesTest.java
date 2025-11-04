@@ -1,5 +1,6 @@
 package api.employees;
 
+import config.Config;
 import models.employees.AddEmployeesRequest;
 import models.employees.AddEmployeesResponse;
 import models.comparison.ModelAssertions;
@@ -16,7 +17,7 @@ public class EmployeesTest extends BaseTest {
     public void addEmployee(){
         AddEmployeesRequest newEmployeeRequest = AddEmployeesRequest.getEmployer();
 
-        AddEmployeesResponse newEmployee = new ValidatedCrudeRequesters<AddEmployeesResponse>(RequestSpecs.adminSpecs(), Endpoint.ADD_EMPLOYEE, ResponseSpecs.requestWasCreated()).post(newEmployeeRequest, config.Config.getProperty("medicalCenterId"));
+        AddEmployeesResponse newEmployee = new ValidatedCrudeRequesters<AddEmployeesResponse>(RequestSpecs.adminSpecs(), Endpoint.ADD_EMPLOYEE, ResponseSpecs.requestWasCreated()).post(newEmployeeRequest, Config.getProperty("medicalCenterId"));
 
         ModelAssertions.assertThatModels(newEmployeeRequest, newEmployee.getContent()).match();
     }
