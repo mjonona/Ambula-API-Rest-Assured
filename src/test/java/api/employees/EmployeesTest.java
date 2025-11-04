@@ -17,6 +17,7 @@ public class EmployeesTest extends BaseTest {
     public void addEmployee(){
         AddEmployeesRequest newEmployeeRequest = AddEmployeesRequest.getEmployer();
 
+
         AddEmployeesResponse newEmployee = new ValidatedCrudeRequesters<AddEmployeesResponse>(RequestSpecs.adminSpecs(), Endpoint.ADD_EMPLOYEE, ResponseSpecs.requestWasCreated()).post(newEmployeeRequest, Config.getProperty("medicalCenterId"));
 
         ModelAssertions.assertThatModels(newEmployeeRequest, newEmployee.getContent()).match();
