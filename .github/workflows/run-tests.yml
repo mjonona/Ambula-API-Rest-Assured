@@ -30,24 +30,9 @@ jobs:
       - name: Run all tests
         run: ./mvnw clean test -q
 
-      # --- Restore history ---
-      - name: Checkout gh-pages history
-        if: always()
-        uses: actions/checkout@v4
-        with:
-          ref: gh-pages
-          path: gh-pages
-
-      - name: Restore history
-        if: always()
-        run: |
-          mkdir -p target/allure-results/history
-          if [ -d gh-pages/history ]; then
-            cp -R gh-pages/history target/allure-results/history
-          fi
-
-      # --- Install Allure ---
+      # ------- Установка Allure CLI -------
       - name: Install Allure CLI
+        if: always()
         run: |
           sudo apt-get update
           sudo apt-get install -y wget unzip
@@ -55,12 +40,12 @@ jobs:
           unzip allure-2.29.0.zip -d /opt/allure
           echo "/opt/allure/allure-2.29.0/bin" >> $GITHUB_PATH
 
-      # --- Generate report with preserved history ---
+      # ------- Генерация отчета -------
       - name: Generate Allure Report
         if: always()
-        run: /opt/allure/allure-2.29.0/bin/allure generate target/allure-results --clean -o allure-history
+        run: allure generate target/allure-results --clean -o allure-history
 
-      # --- Publish to GitHub Pages ---
+      # ------- Публикация в GitHub Pages -------
       - name: Publish Test Report to GitHub Pages
         if: always()
         uses: peaceiris/actions-gh-pages@v3
