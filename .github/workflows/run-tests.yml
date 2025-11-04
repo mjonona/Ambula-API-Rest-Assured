@@ -29,6 +29,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
+      - name: Run all tests
+        run: ./mvnw clean test -q
+
       - name: Checkout gh-pages
         uses: actions/checkout@v4
         with:
