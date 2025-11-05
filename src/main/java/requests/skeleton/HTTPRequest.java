@@ -1,4 +1,4 @@
-package requests;
+package requests.skeleton;
 
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;

@@ -3,13 +3,12 @@ package api.patients;
 import api.BaseTest;
 import config.Config;
 import io.restassured.response.ValidatableResponse;
-import models.Employees.UpdatePatientRequest;
+import models.employees.UpdatePatientRequest;
 import models.patients.AddPatientRequest;
 import models.patients.AddPatientResponse;
-import net.datafaker.Faker;
 import org.junit.jupiter.api.Test;
 import requests.CrudeRequesters;
-import requests.Endpoint;
+import requests.skeleton.Endpoint;
 import specs.RequestSpecs;
 import specs.ResponseSpecs;
 
@@ -36,7 +35,7 @@ public class PatientCrudeTest extends BaseTest {
                 RequestSpecs.adminSpecs(),
                 Endpoint.UPDATE_PATIENT,
                 ResponseSpecs.requestWasSuccess()
-        ).update(upReq, MC_ID, patientId);
+        ).update(upReq, MC_ID);
 
         //Get
 
@@ -44,7 +43,7 @@ public class PatientCrudeTest extends BaseTest {
                 RequestSpecs.adminSpecs(),
                 Endpoint.GET_PATIENT,
                 ResponseSpecs.requestWasSuccess()
-        ).get(MC_ID, patientId)
+        ).get(MC_ID)
                 .extract().as(AddPatientResponse.class);
 
         softly.assertThat(got.getContent().getId()).isEqualTo(patientId);
@@ -73,7 +72,7 @@ public class PatientCrudeTest extends BaseTest {
                 RequestSpecs.adminSpecs(),
                 Endpoint.UPDATE_PATIENT,
                 ResponseSpecs.requestWasSuccess()
-        ).update(upReq, MC_ID, patientId).extract().as(AddPatientResponse.class);
+        ).update(upReq, MC_ID).extract().as(AddPatientResponse.class);
 
 
         System.out.println(updated);

@@ -1,5 +1,4 @@
-package models.LoginModels;
-
+package models.loginModels;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,11 +11,8 @@ import models.BaseModel;
 @AllArgsConstructor
 @Builder
 
-public class UserLoginRequestModel extends BaseModel {
-    private String email;
-    private String password;
+public class UserLoginResponseModel extends BaseModel {
+    private String accessToken;
+    private String refreshToken;
+    private String type;
 }
-
-
-
-

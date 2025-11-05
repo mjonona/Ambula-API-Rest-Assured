@@ -1,18 +1,14 @@
-package requests;
+package requests.skeleton;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 import models.BaseModel;
-import models.Employees.AddEmployeesRequest;
-import models.Employees.AddEmployeesResponse;
-import models.LoginModels.CurrentUserResponseModel;
-import models.LoginModels.UserLoginRequestModel;
-import models.LoginModels.UserLoginResponseModel;
+import models.employees.AddEmployeesRequest;
+import models.employees.AddEmployeesResponse;
+import models.employees.UpdatePatientRequest;
+import models.loginModels.CurrentUserResponseModel;
+import models.loginModels.UserLoginRequestModel;
+import models.loginModels.UserLoginResponseModel;
 import models.patients.AddPatientResponse;
-import models.patients.UpdatePatientRequest;
 
-@AllArgsConstructor
-@Getter
 public enum Endpoint {
 
     USER_LOGIN (
@@ -50,4 +46,22 @@ public enum Endpoint {
     private final Class<? extends BaseModel> requestModel;
     private final Class<? extends BaseModel> responseModel;
 
+
+    Endpoint(String url, Class<? extends BaseModel> requestModel, Class<? extends BaseModel> responseModel) {
+        this.url = url;
+        this.requestModel = requestModel;
+        this.responseModel = responseModel;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public Class<? extends BaseModel> getRequestModel() {
+        return requestModel;
+    }
+
+    public Class<? extends BaseModel> getResponseModel() {
+        return responseModel;
+    }
 }

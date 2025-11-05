@@ -3,6 +3,9 @@ package requests;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 import models.BaseModel;
+import requests.skeleton.CrudEndpointInterfaces;
+import requests.skeleton.Endpoint;
+import requests.skeleton.HTTPRequest;
 
 public class ValidatedCrudeRequesters<T extends BaseModel> extends HTTPRequest implements CrudEndpointInterfaces {
 
@@ -15,22 +18,22 @@ public class ValidatedCrudeRequesters<T extends BaseModel> extends HTTPRequest i
     }
 
     @Override
-    public T post(BaseModel model, Object... params) {
-        return (T) crudeRequesters.post(model, params).extract().as(endpoint.getResponseModel()) ;
+    public T post(BaseModel model, String id) {
+        return (T) crudeRequesters.post(model, id).extract().as(endpoint.getResponseModel()) ;
     }
 
     @Override
-    public T get(Object... params) {
-        return (T) crudeRequesters.get(params).extract().as(endpoint.getResponseModel()) ;
+    public T get(String id) {
+        return (T) crudeRequesters.get(id).extract().as(endpoint.getResponseModel()) ;
     }
 
     @Override
-    public Object update(BaseModel model, Object... params) {
+    public Object update(BaseModel model, String id) {
         return null;
     }
 
     @Override
-    public Object delete(Object... params) {
+    public Object delete(String id) {
         return null;
     }
 }

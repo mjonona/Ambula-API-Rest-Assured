@@ -1,66 +1,67 @@
 package requests;
 
+import allure.AllureSteps;
 import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 import models.BaseModel;
+import requests.skeleton.CrudEndpointInterfaces;
+import requests.skeleton.Endpoint;
+import requests.skeleton.HTTPRequest;
 
 import static io.restassured.RestAssured.given;
 
-public class CrudeRequesters  implements CrudEndpointInterfaces {
-
-    private final RequestSpecification requestSpecification;
-    private final Endpoint endpoint;
-    private final ResponseSpecification responseSpecification;
-
+public class CrudeRequesters extends HTTPRequest implements CrudEndpointInterfaces {
 
     public CrudeRequesters(RequestSpecification requestSpecification, Endpoint endpoint, ResponseSpecification responseSpecification) {
-
-        this.requestSpecification = requestSpecification;
-        this.endpoint = endpoint;
-        this.responseSpecification = responseSpecification;
+        super(requestSpecification, endpoint, responseSpecification);
     }
 
-    @Override
-    public ValidatableResponse post(BaseModel model, Object... params) {
-        if (params == null || params.length == 0) {
-            return given().spec(requestSpecification).body(model).when().post(endpoint.getUrl()).then().spec(responseSpecification);
 
+    @Override
+    public ValidatableResponse post(BaseModel model, String id) {
+
+        String buildPathPost = String.format(endpoint.getUrl(), id);
+
+        if (id != null ) {
+            return AllureSteps.log("POST METHOD for path "+ buildPathPost, () -> {
+                return given().spec(requestSpecification).body(model).when().post(buildPathPost).then().spec(responseSpecification);
+            });
         }
 
-        String formattedUrl = String.format(endpoint.getUrl(), params);
-        return given().spec(requestSpecification).body(model).when().post(formattedUrl).then().spec(responseSpecification);
-    }
-
-    // requests/CrudeRequesters.java
-    private String url(Object... params) {
-        return (params == null || params.length == 0)
-                ? endpoint.getUrl()
-                : String.format(endpoint.getUrl(), params);
+        return AllureSteps.log("POST METHOD for path "+ endpoint.getUrl(), () -> {
+            return given().spec(requestSpecification).body(model).when().post(endpoint.getUrl()).then().spec(responseSpecification);
+        });
     }
 
     @Override
-    public ValidatableResponse get(Object... params) {
-        String formattedUrl = String.format(endpoint.getUrl(), params);
-        return given().spec(requestSpecification)
-                .when().get(formattedUrl)
-                .then().spec(responseSpecification);
+    public ValidatableResponse get(String id) {
+        return AllureSteps.log("GET METHOD with path "+endpoint.getUrl(), () -> {
+            String formattedUrl = String.format(endpoint.getUrl(), id);
+            return given().spec(requestSpecification)
+                    .when().get(formattedUrl)
+                    .then().spec(responseSpecification);
+        });
     }
 
     @Override
-    public ValidatableResponse update(BaseModel model, Object... params) {
-        String formattedUrl = String.format(endpoint.getUrl(), params);
-        return given().spec(requestSpecification)
-                .body(model)
-                .when().patch(formattedUrl)
-                .then().spec(responseSpecification);
+    public ValidatableResponse update(BaseModel model, String id) {
+        return AllureSteps.log("UPDATE METHOD with path "+endpoint.getUrl(), () -> {
+            String formattedUrl = String.format(endpoint.getUrl(), id);
+            return given().spec(requestSpecification)
+                    .body(model)
+                    .when().patch(formattedUrl)
+                    .then().spec(responseSpecification);
+        });
     }
 
 
     @Override
-    public ValidatableResponse delete(Object... params) {
-        String formattedUrl = String.format(endpoint.getUrl(), params);
-        return null;
+    public ValidatableResponse delete(String id) {
+        return AllureSteps.log("DELETE METHOD with path "+endpoint.getUrl(), () -> {
+            String formattedUrl = String.format(endpoint.getUrl(), id);
+            return null;
+        });
     }
 
 
