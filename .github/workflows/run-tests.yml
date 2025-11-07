@@ -31,7 +31,7 @@ jobs:
       - name: Run all tests
         run: ./mvnw clean test -q
 
-      # ------- Установка Allure CLI -------
+
       - name: Load Test Report History
         uses: actions/checkout@v2
         if: always()
