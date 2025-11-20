@@ -8,13 +8,18 @@ import requests.skeleton.Endpoint;
 import specs.RequestSpecs;
 import specs.ResponseSpecs;
 
+import java.util.UUID;
+
 public class PatientsTest extends BaseTest {
 
     @Test
 
-    public void addPatientTest(){
+    public void addPatientTest() {
+
+        String medicalCenterId = Config.getProperty("medicalCenterId");
+
         models.patients.AddPatientRequest patientRequestModel= models.patients.AddPatientRequest.getAddPatientModel();
 
-        new CrudeRequesters(RequestSpecs.adminSpecs(), Endpoint.ADD_PATIENT, ResponseSpecs.requestWasCreated()).post(patientRequestModel, Config.getProperty("medicalCenterId"));
+        new CrudeRequesters(RequestSpecs.adminSpecs(), Endpoint.ADD_PATIENT, ResponseSpecs.requestWasCreated()).post(medicalCenterId, patientRequestModel);
     }
 }

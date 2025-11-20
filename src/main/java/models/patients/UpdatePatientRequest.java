@@ -23,18 +23,14 @@ public class UpdatePatientRequest extends BaseModel {
     private String email;
 
     public static UpdatePatientRequest getUpdatePatientModel() {
-
-
         Faker faker = new Faker();
         String upFName=faker.name().firstName();
         String upLName=faker.name().lastName();
-
 
         return UpdatePatientRequest.builder()
                 .firstName(upFName)
                 .lastName(upLName)
                 .phoneNumber("+18888888880")
                 .build();
-
     }
 }

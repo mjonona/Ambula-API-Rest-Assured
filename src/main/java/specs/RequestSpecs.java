@@ -30,15 +30,23 @@ public class RequestSpecs {
     }
 
     public static RequestSpecification adminSpecs() {
+
+        String medicalCenterID = Config.getProperty("medicalCenterID");
+
         UserLoginRequestModel model = UserLoginRequestModel.builder().email(Config.getProperty("adminEmail")).password(Config.getProperty("adminPassword")).build();
-        UserLoginResponseModel userData = new CrudeRequesters(RequestSpecs.unAuth(), Endpoint.USER_LOGIN, ResponseSpecs.requestWasSuccess()).post(model, "").extract().as(UserLoginResponseModel.class);
+
+        UserLoginResponseModel userData = new CrudeRequesters(RequestSpecs.unAuth(), Endpoint.USER_LOGIN, ResponseSpecs.requestWasSuccess()).post(medicalCenterID, model).extract().as(UserLoginResponseModel.class);
+
         String token = userData.getType().toUpperCase()+" "+userData.getAccessToken();
+
         return defaultRequest().addHeader("Authorization", token).build();
+
     }
 
     public static RequestSpecification userSpecs(String email, String password) {
+        String medicalCenterID = Config.getProperty("medicalCenterID");
         UserLoginRequestModel model = UserLoginRequestModel.builder().email(email).password(password).build();
-        UserLoginResponseModel userData = new CrudeRequesters(RequestSpecs.unAuth(), Endpoint.USER_LOGIN, ResponseSpecs.requestWasSuccess()).post(model, "").extract().as(UserLoginResponseModel.class);
+        UserLoginResponseModel userData = new CrudeRequesters(RequestSpecs.unAuth(), Endpoint.USER_LOGIN, ResponseSpecs.requestWasSuccess()).post(medicalCenterID, model).extract().as(UserLoginResponseModel.class);
         String token = userData.getType()+" "+userData.getAccessToken();
         return defaultRequest().addHeader("Authorization", token).build();
     }

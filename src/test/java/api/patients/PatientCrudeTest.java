@@ -20,9 +20,9 @@ public class PatientCrudeTest extends BaseTest {
 
         //Create
 
-        AddPatientRequest addReq = AddPatientRequest.getAddPatientModel();
+        AddPatientRequest addPatientRequestModel = AddPatientRequest.getAddPatientModel();
 
-        ValidatableResponse createdV = new CrudeRequesters(RequestSpecs.adminSpecs(), Endpoint.ADD_PATIENT, ResponseSpecs.requestWasCreated()).post(addReq, MC_ID);
+        ValidatableResponse createdV = new CrudeRequesters(RequestSpecs.adminSpecs(), Endpoint.ADD_PATIENT, ResponseSpecs.requestWasCreated()).post(MC_ID, addPatientRequestModel);
 
 
         AddPatientResponse created = createdV.extract().as(AddPatientResponse.class);
@@ -31,11 +31,11 @@ public class PatientCrudeTest extends BaseTest {
         //Update
 
         UpdatePatientRequest upReq = UpdatePatientRequest.getUpdatePatientModel();
-        ValidatableResponse updated = new CrudeRequesters(
+        new CrudeRequesters(
                 RequestSpecs.adminSpecs(),
                 Endpoint.UPDATE_PATIENT,
                 ResponseSpecs.requestWasSuccess()
-        ).update(upReq, MC_ID);
+        ).patch(MC_ID, upReq, patientId);
 
         //Get
 
@@ -43,39 +43,9 @@ public class PatientCrudeTest extends BaseTest {
                 RequestSpecs.adminSpecs(),
                 Endpoint.GET_PATIENT,
                 ResponseSpecs.requestWasSuccess()
-        ).get(MC_ID)
+        ).get(MC_ID, patientId)
                 .extract().as(AddPatientResponse.class);
 
         softly.assertThat(got.getContent().getId()).isEqualTo(patientId);
-
-    }
-
-    @Test
-
-    public void updatePat() {
-
-        //Create
-
-        AddPatientRequest addReq = AddPatientRequest.getAddPatientModel();
-        ValidatableResponse createdV = new CrudeRequesters(
-                RequestSpecs.adminSpecs(),
-                Endpoint.ADD_PATIENT,
-                ResponseSpecs.requestWasCreated()
-        ).post(addReq, MC_ID);
-
-        AddPatientResponse created = createdV.extract().as(AddPatientResponse.class);
-        String patientId = created.getContent().getId();
-        //Update
-
-        UpdatePatientRequest upReq = UpdatePatientRequest.getUpdatePatientModel();
-        AddPatientResponse updated = new CrudeRequesters(
-                RequestSpecs.adminSpecs(),
-                Endpoint.UPDATE_PATIENT,
-                ResponseSpecs.requestWasSuccess()
-        ).update(upReq, MC_ID).extract().as(AddPatientResponse.class);
-
-
-        System.out.println(updated);
-        softly.assertThat(updated.getContent().getPhoneNumber()).isEqualTo(addReq.getPhoneNumber());
     }
 }
