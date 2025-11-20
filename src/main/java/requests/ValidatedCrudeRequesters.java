@@ -17,23 +17,29 @@ public class ValidatedCrudeRequesters<T extends BaseModel> extends HTTPRequest i
         this.crudeRequesters = new CrudeRequesters(requestSpecification, endpoint, responseSpecification);
     }
 
+
     @Override
-    public T post(BaseModel model, String id) {
-        return (T) crudeRequesters.post(model, id).extract().as(endpoint.getResponseModel()) ;
+    public T post(String medicalCenterID, BaseModel model, String... id) {
+        return (T) crudeRequesters.post(medicalCenterID, model, id).extract().as(endpoint.getResponseModel());
     }
 
     @Override
-    public T get(String id) {
-        return (T) crudeRequesters.get(id).extract().as(endpoint.getResponseModel()) ;
+    public T get(String medicalCenterID, String id) {
+        return (T) crudeRequesters.get(medicalCenterID, id).extract().as(endpoint.getResponseModel());
     }
 
     @Override
-    public Object update(BaseModel model, String id) {
-        return null;
+    public T update(String medicalCenterID, BaseModel model, String... id) {
+        return (T) crudeRequesters.update(medicalCenterID, model, id).extract().as(endpoint.getResponseModel())  ;
     }
 
     @Override
-    public Object delete(String id) {
-        return null;
+    public T patch(String medicalCenterID, BaseModel model, String id) {
+        return (T) crudeRequesters.patch(medicalCenterID, model, id) ;
+    }
+
+    @Override
+    public T delete(String medicalCenterID, String id) {
+        return (T) crudeRequesters.delete(medicalCenterID, id) ;
     }
 }

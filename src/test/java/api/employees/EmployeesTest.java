@@ -5,6 +5,7 @@ import models.employees.AddEmployeesRequest;
 import models.employees.AddEmployeesResponse;
 import models.comparison.ModelAssertions;
 import org.junit.jupiter.api.Test;
+import requests.CrudeRequesters;
 import requests.skeleton.Endpoint;
 import requests.ValidatedCrudeRequesters;
 import specs.RequestSpecs;
@@ -15,10 +16,13 @@ public class EmployeesTest extends BaseTest {
 
     @Test
     public void addEmployee(){
+
+        String medicalCenterID = Config.getProperty("medicalCenterId");
+
+
         AddEmployeesRequest newEmployeeRequest = AddEmployeesRequest.getEmployer();
 
-
-        AddEmployeesResponse newEmployee = new ValidatedCrudeRequesters<AddEmployeesResponse>(RequestSpecs.adminSpecs(), Endpoint.ADD_EMPLOYEE, ResponseSpecs.requestWasCreated()).post(newEmployeeRequest, Config.getProperty("medicalCenterId"));
+        AddEmployeesResponse newEmployee = new CrudeRequesters(RequestSpecs.adminSpecs(), Endpoint.ADD_EMPLOYEE, ResponseSpecs.requestWasCreated()).post(medicalCenterID, newEmployeeRequest).extract().as(AddEmployeesResponse.class);
 
         ModelAssertions.assertThatModels(newEmployeeRequest, newEmployee.getContent()).match();
     }
